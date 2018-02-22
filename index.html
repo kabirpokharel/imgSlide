@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>image slide</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		#main{
+			height:516px;
+			width:516px;
+		}
+		.thumbnail{
+			height: 100px;
+			width:100px;
+		}
+	</style>
+</head>
+<body>
+<div id="containt">
+	<div>
+		<img id="main" src="images/1.jpeg">
+	</div>
+	<img class="thumbnail" src="images/1.jpeg">
+	<img class="thumbnail" src="images/2.jpeg">
+	<img class="thumbnail" src="images/3.jpeg">
+	<img class="thumbnail" src="images/4.jpeg">
+	<img class="thumbnail" src="images/5.jpeg">
+</div>
+<script type="text/javascript">
+	var main=document.getElementById("main");
+	var x=document.getElementsByClassName("thumbnail");
+	for(i=0;i<x.length;i++){
+		x[i].addEventListener("click",one);
+	}
+		function one(){
+			main.setAttribute("src",this.getAttribute("src"));
+		}
+	var stop=setInterval(slideShow,2000);
+	main.addEventListener("mouseover",onMouseover);
+	main.addEventListener("mouseout",function(){stop=setInterval(slideShow,2000);});
+	function slideShow(){
+		var source=main.getAttribute("src");
+		var picNum=parseInt(source.substring(source.indexOf("/")+1,source.indexOf("/")+2));
+		if(picNum==5){
+			picNum=0;
+		}
+		picNum+=1;
+		var source=source.replace(source,"images/"+picNum+".jpeg");
+		main.setAttribute("src",source);
+	}
+	function onMouseover(){
+		clearInterval(stop);
+	}
+</script>
+</body>
+</html>
